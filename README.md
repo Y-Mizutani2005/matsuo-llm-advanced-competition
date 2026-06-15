@@ -1,71 +1,73 @@
-# Matsuo Lab LLM Advanced Competition Snapshot
+# 松尾研 LLM Advanced Competition 公開用スナップショット
 
-Portfolio snapshot of my U29 Excellence Award work in the Matsuo Lab LLM Course Advanced Competition.
-The project improved an agent benchmark setup across DBBench and ALFWorld by fine-tuning Qwen2.5-7B-Instruct with SFT, LoRA / QLoRA, and data-format normalization.
-The central idea was to convert ALFWorld function-calling trajectories into text ReAct format before hybrid SFT, so one model could learn both task families more consistently.
-The best run improved the combined score from the no-SFT baseline while avoiding raw dataset, model artifact, credential, and large-log publication.
+東京大学 松尾・岩澤研究室の集中講義「大規模言語モデル応用編」アドバンスドコンペ U29 部門で優秀賞を受賞した取り組みの、採用・技術面接向け公開用スナップショットです。
 
-## Result Summary
+このプロジェクトでは、DBBench と ALFWorld という 2 種類の agent benchmark に対して、`Qwen2.5-7B-Instruct` を SFT / LoRA / QLoRA で追加学習し、総合スコア改善を狙いました。中心となる工夫は、ALFWorld の function-calling trajectory を text ReAct 形式へ変換し、DBBench と近い会話形式にそろえたうえで hybrid SFT を行った点です。
 
-Best run: `hybrid_alf_react`.
+この repo には、公開可能な実験ログ、主要 script、短い技術解説、runbook、受賞証明のみを含めています。raw dataset、model artifact、credential、巨大 log、notebook 出力は含めていません。
 
-| Experiment | ALFWorld | DBBench | Combined | Submission Score |
+## 成果サマリ
+
+最良 run は `hybrid_alf_react` です。
+
+| 実験 | ALFWorld | DBBench | Combined | Submission Score |
 |---|---:|---:|---:|---:|
 | Baseline, no SFT | 48.0% | 51.0% | 99.0 | - |
 | DB-only low-impact SFT | 56.0% | 52.405% | 108.405 | 4.1694 |
 | Hybrid ALF ReAct SFT | 64.0% | 48.806% | 112.806 | 4.3387 |
 | Hybrid ALF ReAct + MAX x2 | 64.0% | 48.715% | 112.715 | 4.3352 |
 
-The final direction prioritized total agent performance over DB-only score. The hybrid run improved ALFWorld by 16.0 points versus baseline, while the DBBench regression stayed small enough for the combined score to improve.
+最終方針は、DBBench 単体のスコア最大化ではなく、agent としての総合性能を優先することでした。`hybrid_alf_react` では baseline に対して ALFWorld が 16.0pt 改善し、DBBench の低下を許容範囲に抑えたことで combined score を改善しました。
 
-## What I Built
+## 何を作ったか
 
-- A profile-switchable SFT training script for DB-only and hybrid runs.
-- DBBench role normalization from `agent` to `assistant`.
-- Filtering for known malformed SQL samples with trailing `))`.
-- ALFWorld function-calling to text ReAct conversion.
-- Runbooks and experiment logs for the final training choices.
-- Small analysis scripts for format evidence and DBBench error review.
+- DB-only / hybrid run を切り替えられる SFT 学習 script
+- DBBench の `agent` role を `assistant` にそろえる正規化処理
+- SQL 末尾に不要な `))` を含む既知の不良サンプルの除外
+- ALFWorld の function-calling action を text ReAct 形式へ変換する前処理
+- 最終実験の runbook と実験ログ
+- ALFWorld の形式比較、DBBench の error analysis 用 script
 
-## How To Read This Repo
+## 読む順番
 
-1. [`experiment_log.md`](experiment_log.md): score progression and experiment decisions.
-2. [`docs/technical-notes.md`](docs/technical-notes.md): short explanation of the core approach.
-3. [`final_three_experiments_runbook.md`](final_three_experiments_runbook.md): final experiment profiles.
-4. [`standard_code_sft_v2.py`](standard_code_sft_v2.py): main training script.
-5. [`merge_and_upload.py`](merge_and_upload.py): sanitized model merge and upload helper.
+1. [`experiment_log.md`](experiment_log.md): 実験ごとのスコア推移と判断理由
+2. [`docs/technical-notes.md`](docs/technical-notes.md): 中核となる形式統一アプローチの短い説明
+3. [`final_three_experiments_runbook.md`](final_three_experiments_runbook.md): 最終 3 実験の profile と実行順
+4. [`standard_code_sft_v2.py`](standard_code_sft_v2.py): main training script
+5. [`merge_and_upload.py`](merge_and_upload.py): sanitized 済みの model merge / upload helper
 
-## Repository Map
+## Repo 構成
 
-- `standard_code_sft_v2.py`: main Colab-oriented SFT script with experiment profile switching.
-- `merge_and_upload.py`: environment-variable based helper for merging a LoRA adapter and uploading a merged model.
-- `extract_format_evidence.py`: local log inspection helper for ALFWorld format comparison.
-- `analyze_v4_errors.py`: local log inspection helper for DBBench task-limit errors.
-- `experiment_log.md`: experiment history and score progression.
-- `score_improvement_plan.md`: initial improvement strategy.
-- `final_three_experiments_runbook.md`: final experiment profiles and execution order.
-- `docs/development_document_simple_draft.md`: Japanese short development note.
-- `docs/technical-notes.md`: polished technical summary for reviewers.
+- `standard_code_sft_v2.py`: profile switching 付きの Colab 向け SFT script
+- `merge_and_upload.py`: 環境変数ベースの LoRA adapter merge / upload helper
+- `extract_format_evidence.py`: ALFWorld の形式比較用 local log inspection helper
+- `analyze_v4_errors.py`: DBBench の task-limit error 分析 helper
+- `experiment_log.md`: 実験履歴と score progression
+- `score_improvement_plan.md`: 初期の改善方針
+- `final_three_experiments_runbook.md`: 最終実験の profile と実行順
+- `docs/development_document_simple_draft.md`: 日本語の短い開発メモ
+- `docs/technical-notes.md`: 技術面接向けの短い解説
+- `docs/evidence/`: 受賞証明 PDF と README 表示用 preview
 
-## Award And Evidence
+## 受賞と根拠
 
-- Award: Advanced Competition U29 Excellence Award, Matsuo Lab LLM Course.
-- Public course context: [Matsuo-Iwasawa Lab LLM course page](https://weblab.t.u-tokyo.ac.jp/lecture/course-list/large-language-model/).
-- Official result roster: [Matsuo Lab lecture Notion page, 大規模言語モデル2025 section](https://matsuolab-lecture.notion.site/432e287af97445d5aba989553ebaf808#126cfa7cece780d0807cea09481a604c).
-- Certificate PDF: [`docs/evidence/matsuo-llm-advanced-u29-award-certificate.pdf`](docs/evidence/matsuo-llm-advanced-u29-award-certificate.pdf).
+- 受賞: 松尾研 LLM 講座 Advanced Competition U29 部門 優秀賞
+- 公式講座情報: [東京大学 松尾・岩澤研究室 大規模言語モデル講座](https://weblab.t.u-tokyo.ac.jp/lecture/course-list/large-language-model/)
+- 公式掲載: [松尾研講座 Notion ページ「大規模言語モデル2025」欄](https://matsuolab-lecture.notion.site/432e287af97445d5aba989553ebaf808#126cfa7cece780d0807cea09481a604c)
+- 証明書 PDF: [`docs/evidence/matsuo-llm-advanced-u29-award-certificate.pdf`](docs/evidence/matsuo-llm-advanced-u29-award-certificate.pdf)
 
-<img src="docs/evidence/matsuo-llm-advanced-u29-award-certificate.png" alt="U29 Excellence Award certificate for Matsuo Lab LLM Advanced Competition" width="560">
+<img src="docs/evidence/matsuo-llm-advanced-u29-award-certificate.png" alt="松尾研 LLM Advanced Competition U29 部門 優秀賞の証明書" width="560">
 
-## What Is Intentionally Excluded
+## 意図的に除外しているもの
 
-This snapshot does not include:
+この repo には以下を含めていません。
 
-- API tokens, Hugging Face tokens, or local `.env` files.
-- model checkpoints, LoRA adapter exports, or merged model weights.
-- private submission credentials.
-- raw datasets or redistribution-unclear data.
-- generated caches, notebook outputs, and large logs.
+- API token、Hugging Face token、local `.env`
+- model checkpoint、LoRA adapter export、merged model weight
+- private submission credential
+- raw dataset や再配布可否が不明なデータ
+- generated cache、notebook output、巨大 log
 
-## Reproducibility Note
+## 再現性について
 
-The scripts are preserved to show engineering intent and experiment structure. They are not a one-command reproduction package because the original competition environment, model artifacts, local logs, and some data access assumptions are intentionally excluded from the public snapshot.
+この repo は、当時の実験設計・改善過程・主要な実装意図を説明するための公開用 snapshot です。元の competition environment、model artifact、local log、一部の data access 前提は公開対象から外しているため、完全な one-command reproduction package ではありません。
