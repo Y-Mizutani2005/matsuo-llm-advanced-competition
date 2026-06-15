@@ -1,0 +1,56 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.token
+
+# Python local environment and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Editor / agent scratch
+.agent/
+.agents/
+*.code-workspace
+memo.md
+
+# Logs and generated outputs
+logs/
+outputs/
+output/
+results/
+*.log
+*_output.txt
+*_result.txt
+
+# Large/raw/private ML artifacts
+data/
+raw/
+private/
+secrets/
+checkpoints/
+models/
+adapters/
+lora*/
+wandb/
+mlruns/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.gguf
+*.onnx
+*.parquet
+*.arrow
+
+# Local documents / submission artifacts
+*.docx
+*.pptx
+*.zip
