@@ -47,7 +47,7 @@
 - `docs/technical-notes.md`: 技術面接向けの短い解説
 - `docs/evidence/`: 受賞証明 PDF と README 表示用 preview
 
-## 受賞と根拠
+## evidence
 
 - 受賞: 松尾研 LLM 講座 Advanced Competition U29 部門 優秀賞
 - 公式講座情報: [東京大学 松尾・岩澤研究室 大規模言語モデル講座](https://weblab.t.u-tokyo.ac.jp/lecture/course-list/large-language-model/)
@@ -55,16 +55,6 @@
 - 証明書 PDF: [`docs/evidence/matsuo-llm-advanced-u29-award-certificate.pdf`](docs/evidence/matsuo-llm-advanced-u29-award-certificate.pdf)
 
 <img src="docs/evidence/matsuo-llm-advanced-u29-award-certificate.png" alt="松尾研 LLM Advanced Competition U29 部門 優秀賞の証明書" width="560">
-
-## 意図的に除外しているもの
-
-この repo には以下を含めていません。
-
-- API token、Hugging Face token、local `.env`
-- model checkpoint、LoRA adapter export、merged model weight
-- private submission credential
-- raw dataset や再配布可否が不明なデータ
-- generated cache、notebook output、巨大 log
 
 ## 再現性について
 
