@@ -4,8 +4,6 @@
 
 このプロジェクトでは、DBBench と ALFWorld という 2 種類の agent benchmark に対して、`Qwen2.5-7B-Instruct` を SFT / LoRA / QLoRA で追加学習し、総合スコア改善を狙いました。中心となる工夫は、ALFWorld の function-calling trajectory を text ReAct 形式へ変換し、DBBench と近い会話形式にそろえたうえで hybrid SFT を行った点です。
 
-この repo には、公開可能な実験ログ、主要 script、短い技術解説、runbook、受賞証明のみを含めています。raw dataset、model artifact、credential、巨大 log、notebook 出力は含めていません。
-
 ## 成果サマリ
 
 最良 run は `hybrid_alf_react` です。
