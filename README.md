@@ -51,8 +51,10 @@ The final direction prioritized total agent performance over DB-only score. The 
 
 - Award: Advanced Competition U29 Excellence Award, Matsuo Lab LLM Course.
 - Public course context: [Matsuo-Iwasawa Lab LLM course page](https://weblab.t.u-tokyo.ac.jp/lecture/course-list/large-language-model/).
-- The certificate PDF is intentionally not included in this public repository because publishing the certificate itself requires a separate privacy review.
-- At the time this snapshot was prepared, I did not find a public official winner-list URL suitable for linking here.
+- Official result roster: [Matsuo Lab lecture Notion page, 大規模言語モデル2025 section](https://matsuolab-lecture.notion.site/432e287af97445d5aba989553ebaf808#126cfa7cece780d0807cea09481a604c).
+- Certificate PDF: [`docs/evidence/matsuo-llm-advanced-u29-award-certificate.pdf`](docs/evidence/matsuo-llm-advanced-u29-award-certificate.pdf).
+
+<img src="docs/evidence/matsuo-llm-advanced-u29-award-certificate.png" alt="U29 Excellence Award certificate for Matsuo Lab LLM Advanced Competition" width="560">
 
 ## What Is Intentionally Excluded
 
@@ -63,7 +65,6 @@ This snapshot does not include:
 - private submission credentials.
 - raw datasets or redistribution-unclear data.
 - generated caches, notebook outputs, and large logs.
-- local certificate PDF files.
 
 ## Reproducibility Note
 
